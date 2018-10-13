@@ -1,0 +1,317 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Title of the document</title>
+        
+        <link rel="stylesheet" href="css/style.css" />
+        <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">        
+        <link rel="shortcut icon" href="favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/main.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+        <script src="script/modernizr.custom.63321.js"></script>
+        
+    </head>
+
+<body>
+
+    <!--top-->
+    <div class="container-fluid top-bar-bg">
+        <div class="row">
+            <div class="col-md-6">
+                <a href="#" style="text-decoration: none;"><div class="logo-item">Get<span>Norrised</span><img src="img/logo.png" draggable="false"/></div></a>
+            </div>
+            <div class="col-md-6 top-right-block">
+                <button type="button" class="btn btn-yellow btn-lg" data-toggle="modal" data-target="#myModal"><i class="fas fa-star"></i></button>
+            </div>
+        </div>
+    </div>
+    <!--top-->
+
+         <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header modal-head-custom">
+                        <h4>Favorite lists</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body modal-body-custom">
+                        <div class="favorite-list-block">
+                            <ul class="favorite-list">
+                                <li>Lorem ipsum</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" id="fetch-favo">Fetch favorites</button>
+                        <button type="button" class="btn btn-default" id="clear-favo">Clear favorites</button>
+                        <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+
+
+        <div id="caroslider" class="carousel slide" data-interval="false">
+
+        <!-- Indicators -->
+        <ul class="carousel-indicators">
+            <li data-target="#caroslider" data-slide-to="0" class="active"></li>
+            <li data-target="#caroslider" data-slide-to="1"></li>
+        </ul>
+        
+        <!-- The slideshow -->
+        <div class="carousel-inner">
+
+            <div class="carousel-item active">
+                    <div class="car-slide">
+                        <div class="sec-slide">
+                            <span class="sec-text">
+                                <div><h1>YOU'RE ABOUT TO GET</h1></div>
+                                <div><h1><strong>NORRISED</strong></h1></div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                <div class="car-slide" id="jokes-list">
+                        <h1> CHUCK NORRIS TRUE FACTS.</h1>
+                        <section class="main-stackslider">
+                                <ul id="st-stack" class="st-stack-raw">
+                                    <li><div class="st-item"><img src="img/meme/1.jpg"/></div></li>
+                                    <li><div class="st-item"><img src="img/meme/2.jpg"/></div></li>
+                                    <li><div class="st-item"><img src="img/meme/3.jpg"/></div></li>
+                                    <li><div class="st-item"><img src="img/meme/4.jpg"/></div></li>
+                                    <li><div class="st-item"><img src="img/meme/5.jpg"/></div></li>
+                                    <li><div class="st-item"><img src="img/meme/6.jpg"/></div></li>
+                                    <li><div class="st-item"><img src="img/meme/7.jpg"/></div></li>
+                                    <li><div class="st-item"><img src="img/meme/8.jpg"/></div></li>
+                                    <li><div class="st-item"><img src="img/meme/9.jpg"/></div></li>
+                                    
+                                </ul>
+                        </section>
+                </div>
+                </div>
+
+        </div>
+        
+        <!-- Left and right controls -->
+        <a class="carousel-control-prev" href="#caroslider" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#caroslider" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </a>
+        </div>
+
+        <div class="container main-block">
+            <div class="row">
+                <div class="col-md-12 jokes-buttons-block">
+                        <span class="refreshbutton-block">
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="svg-filters">
+                            <defs>
+                                <filter id="filter-goo-1">
+                                    <feGaussianBlur in="SourceGraphic" stdDeviation="7" result="blur" />
+                                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
+                                    <feComposite in="SourceGraphic" in2="goo" />
+                                </filter>
+                            </defs>
+                        </svg>
+                        <button id="component-1" class="button button--1 get-data">
+                            Refresh
+                            <span class="button__container">
+                                <span class="circle top-left"></span>
+                                <span class="circle top-left"></span>
+                                <span class="circle top-left"></span>
+                                <span class="button__bg"></span>
+                                <span class="circle bottom-right"></span>
+                                <span class="circle bottom-right"></span>
+                                <span class="circle bottom-right"></span>
+                            </span>
+                        </button>
+                        
+                    </span>
+                </div>
+
+                <div class="col-md-12 jokes-list-block">
+                    <ul class="jokes-list">
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!--footer-->
+        <div class="container-fluid footer-block">
+            <div class="row">
+                <div class="col-md-12 footer-sec">
+                    <a href="#">GETNORRISED</a>
+                </div>
+            </div>
+        </div>
+        <!--footer-->
+
+        <script src="script/TweenMax.min.js"></script>
+        <script src="script/main.js"></script>
+        
+        <script type="text/javascript">
+
+            //load on start
+            window.onload = function() {
+
+                //call function
+                getdata();
+            };
+            
+            //refresh data
+            $('.get-data').click(function () {
+
+                //call function
+                getdata();
+                
+            });
+           
+            //function to get data from api
+            function getdata(){
+                var url = "http://api.icndb.com/jokes/random/10";
+
+                $.getJSON(url,
+                function (data) {
+
+                    console.log(data);
+
+                    //count Jokes
+                    var count_jokes = data.value.length;
+                    var stringifytxt = JSON.stringify(data);//make json file readable
+                    
+                    //check if there are actions
+                    if(count_jokes > 0){
+                        
+                        //change text
+                        //$("#joke-count").text("("+count_jokes+")");
+
+                        var result = "";
+                        $.each(data.value,function(index, value)
+                        {
+                            result += "<li id='"+value.joke+"'>"+value.joke+"</li>"
+                        });
+
+                        $('.jokes-list').html(result);
+                        
+                    }
+                    
+                });
+            }
+
+            // get favorites from local storage or empty array
+            var favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            // add class 'fav' to each favorite
+            //favorites.forEach(function(favorite) {
+            //    document.getElementById(favorite).className = "fav";
+            //});
+            // register click event listener
+            document.querySelector('.jokes-list').addEventListener('click', function(e) {
+            var id = e.target.id,
+                item = e.target,
+                index = favorites.indexOf(id);
+            // return if target doesn't have an id (shouldn't happen)
+            if (!id) return;
+            // item is not favorite
+            if (index == -1) {
+                favorites.push(id);
+                item.className = "fav";
+
+                //add to favorite list
+                $(".favorite-list").append("<li id='"+id+"'>"+id+"</li>");
+
+            // item is already favorite
+            } else {
+                favorites.splice(index, 1);
+                item.className = '';
+
+                //remove from favorite list
+                
+            }
+            // store array in local storage
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            });
+
+            // local storage stores strings so we use JSON to stringify for storage and parse to get out of storage
+
+            
+            //fetch favorites
+            $('#fetch-favo').click(function () {
+
+                //call function
+                for(var i=0; i < localStorage.length; i++){
+
+                    var propertyName = localStorage.key(i);
+
+                    console.log(  i + " : " + propertyName + " = " +
+                        localStorage.getItem(propertyName));
+                }
+
+            });
+            
+            //remove all favorites
+            $('#clear-favo').click(function () {
+
+                window.localStorage.removeItem('favorites');
+                
+
+            });
+
+
+            //auto update action lists
+            ///setInterval(function(){
+                //$.getJSON('/refresh_actions', function(data){
+
+                    //count actions
+                //   var count_actions = data.actions.length;
+                    //var stringifytxt = JSON.stringify(data);//make json file readable
+                    
+                    //check if there are actions
+                // if(count_actions > 0){
+                        
+                        //clean table
+                    //  cleanTable();
+                        
+                        //change text
+                    // $("#actions-count").text("("+count_actions+")");
+                        
+                    // actions = data.actions.map(function(action){
+                        
+                    //     addRows(action);
+                        
+                        
+                    // }).join('');
+                        
+                        
+                    //}
+                    
+            //});
+        // }, 5000);
+
+        </script>
+
+        
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script type="text/javascript" src="script/jquery.stackslider.js"></script>
+        <script type="text/javascript">
+			
+			$( function() {
+				
+				$( '#st-stack' ).stackslider();
+
+			});
+
+		</script>
+</body>
+
+</html>
