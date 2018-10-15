@@ -26,12 +26,13 @@
             </div>
             <div class="col-md-6 top-right-block">
                 <button type="button" class="btn btn-yellow btn-lg" data-toggle="modal" data-target="#myModal"><i class="fas fa-star"></i></button>
+                <button type="button" id="messageButton" class="btn btn-hidden btn-lg" data-toggle="modal" data-target="#messageModal">hidden</button>
             </div>
         </div>
     </div>
     <!--top-->
 
-         <!-- Modal -->
+         <!-- Modals -->
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -46,14 +47,41 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" id="fetch-favo">Fetch all time favorites</button>
-                        <button type="button" class="btn btn-default" id="clear-favo">Clear favorites</button>
+                        <div class="col-sm-6">
+                            <span class="auto-add-favo">
+                                <input type="checkbox" name="autofav" id="auto-fav" onclick="autoFetchCheck()"/>
+                                <label for="autofav">Auto Add Jokes</label>
+                            </span>
+                        </div>
+                        <div class="col-sm-6 mdl-footer-buttons">
+                            <button type="button" class="btn btn-default" id="fetch-favo">Fetch all time favorites</button>
+                            <button type="button" class="btn btn-default" id="clear-favo">Clear favorites</button>
                         <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Modal -->
+        
+        <div class="modal fade" id="messageModal" role="dialog">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header modal-head-custom">
+                            <h4>Message</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <div class="modal-body modal-body-custom">
+                           <p>Randomly adding jokes has been deactivated.</p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- Modals -->
 
 
         <div id="caroslider" class="carousel slide" data-interval="false">
@@ -165,16 +193,19 @@
 
                 //call function
                 getdata();
-                
+
             };
             
+            //declare var
             var FavoList = $(".favorite-list");
             var ulFavo = document.getElementById("favo-list");
+            var timer ;
 
             // get favorites from local storage or empty array
             var favorites = JSON.parse(localStorage.getItem('favorites')) || [];
             
-            // register click event listener
+
+            // Click event to add to favorite list
             document.querySelector('.jokes-list').addEventListener('click', function(e) {
             var id = e.target.id,
                 item = e.target,
@@ -182,23 +213,24 @@
 
             // return if target doesn't have an id (shouldn't happen)
             if (!id) return;
+            
+                //myFavoJokes = JSON.parse(localStorage.getItem("favorites"));
+            
+                // item is not favorite
+                if (index == -1) {
 
-            // item is not favorite
-            if (index == -1) {
-                favorites.push(id);
-                item.className = "fav";
+                    favorites.push(id);
+                    item.className = "fav";
 
-                //add to favorite list
-                FavoList.append("<li id='"+id+"'>"+id+"</li>");
+                    //add to favorite list
+                    FavoList.append("<li id='"+id+"'>"+id+"</li>");
+              
+                // item is already favorite
+                } else {
+                    favorites.splice(index, 1);
+                    item.className = '';
+                }
 
-            // item is already favorite
-            } else {
-                favorites.splice(index, 1);
-                item.className = '';
-
-                //remove from favorite list
-                
-            }
             // store array in local storage
             localStorage.setItem('favorites', JSON.stringify(favorites));
             });
@@ -231,8 +263,7 @@
 
             });
             
-            
-            
+
             //function to create li
             const liMaker = (text) => {
                 const li = document.createElement('li');
@@ -251,12 +282,12 @@
                 if(myFavoJokes != null){
                     
                     //clean favorite list
-                    FavoList.innerHTML = "";
+                    ulFavo.innerHTML = "";
 
                     myFavoJokes.forEach(item => {
                         liMaker(item);
-                    });
-
+                     });
+                    
                 }else{
 
                     //if no favorites have been found
@@ -280,7 +311,7 @@
                     var count_jokes = data.value.length;
                     var stringifytxt = JSON.stringify(data);//make json file readable
                     
-                    //check if there are actions
+                    //check if there are jokes
                     if(count_jokes > 0){
                         
                         //change text
@@ -299,40 +330,89 @@
                 });
             }
 
+            //function to get 1 random joke
+            function getAutoJoke(state){
 
-            //auto update action lists
-            ///setInterval(function(){
-                //$.getJSON('/refresh_actions', function(data){
+                if(state == 1){
 
-                    //count actions
-                //   var count_actions = data.actions.length;
-                    //var stringifytxt = JSON.stringify(data);//make json file readable
+                    var url = "http://api.icndb.com/jokes/random/1";
+
+                    $.getJSON(url,
+                    function (data) {
+
+                        //console.log(data.value);
+
+                        //count Jokes
+                        var count_jokes = data.value.length;
+                        var stringifytxt = JSON.stringify(data);//make json file readable
+
+                        //check if there is a joke
+                        if(count_jokes > 0){
+
+                            var randomJoke = "";
+
+                            $.each(data.value,function(index, value)
+                            {
+                                randomJoke = value.joke;
+                                
+                                console.log(randomJoke);
+                            
+                                favorites.push(randomJoke);
+
+                                //add to favorite list
+                                FavoList.append("<li id='"+randomJoke+"'>"+randomJoke+"</li>");
+
+                            });
+                            
+                            // store array in local storage
+                            localStorage.setItem('favorites', JSON.stringify(favorites));
+                            
+                        }
+                        
+                    });
+
+                }else{
+
+                    alert("Something went wrong!");
+
+                }
+
+            }
+
+
+            //Checkbox automatic add favorite Joke
+            function autoFetchCheck(){
+
+                var state = 0;
+
+                if(document.getElementById('auto-fav').checked){
+
+                    state = 1;
                     
-                    //check if there are actions
-                // if(count_actions > 0){
-                        
-                        //clean table
-                    //  cleanTable();
-                        
-                        //change text
-                    // $("#actions-count").text("("+count_actions+")");
-                        
-                    // actions = data.actions.map(function(action){
-                        
-                    //     addRows(action);
-                        
-                        
-                    // }).join('');
-                        
-                        
-                    //}
-                    
-            //});
-        // }, 5000);
+                    //clean favorite list
+                    ulFavo.innerHTML = "";
 
+                    //call fetch all jokes function
+                    FetchAfavorites();
+
+                    //activate timer
+                    timer = setInterval(function(){
+
+                        //call auto fetch function
+                        getAutoJoke(state);
+
+                    }, 5000);
+
+                }else{
+
+                    //clear timer
+                    clearInterval(timer);
+
+                }
+            }
+
+           
         </script>
-
-        
 
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <script type="text/javascript" src="script/jquery.stackslider.js"></script>

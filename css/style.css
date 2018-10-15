@@ -104,6 +104,14 @@ body{
     background-color: #fff;
     margin-bottom: 10px;
     cursor: pointer;
+
+    -moz-transition: all .2s ease; /* Firefox */
+    -ms-transition: all .2s ease; /* IE 9 */
+    -o-transition: all .2s ease; /* Opera */
+    transition: all .2s ease;
+}
+.jokes-list li:hover{
+    background-color: #f9f9f9;
 }
 .jokes-list li.fav:after {
     font-family: "Font Awesome 5 Free";
@@ -166,6 +174,20 @@ color: rgb(255, 203, 0);
     background-color: #e7ae38;
     color: #f9f9f9;
     border: none;
+    cursor: pointer;
+}
+.btn-hidden{
+    display: none !important;
+}
+.modal-footer > .col-sm-6{
+    padding-left: 0;
+    padding-right: 0;
+}
+.mdl-footer-buttons button{
+    display: inline-block;
+}
+.mdl-footer-buttons{
+    text-align: right;
 }
 .modal-header .close {
     padding: 0 !important;
