@@ -1,13 +1,13 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>Title of the document</title>
+        <title>GetNorrised</title>
         
         <link rel="stylesheet" href="css/style.css" />
         <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">        
-        <link rel="shortcut icon" href="favicon.ico">
+        <!--<link rel="shortcut icon" href="favicon.ico">-->
 		<link rel="stylesheet" type="text/css" href="css/main.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
@@ -41,13 +41,12 @@
                     </div>
                     <div class="modal-body modal-body-custom">
                         <div class="favorite-list-block">
-                            <ul class="favorite-list">
-                                <li>Lorem ipsum</li>
+                            <ul class="favorite-list" id="favo-list">
                             </ul>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" id="fetch-favo">Fetch favorites</button>
+                        <button type="button" class="btn btn-default" id="fetch-favo">Fetch all time favorites</button>
                         <button type="button" class="btn btn-default" id="clear-favo">Clear favorites</button>
                         <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
                     </div>
@@ -68,7 +67,7 @@
         <!-- The slideshow -->
         <div class="carousel-inner">
 
-            <div class="carousel-item active">
+            <div class="carousel-item">
                     <div class="car-slide">
                         <div class="sec-slide">
                             <span class="sec-text">
@@ -79,8 +78,8 @@
                     </div>
                 </div>
 
-                <div class="carousel-item">
-                <div class="car-slide" id="jokes-list">
+                <div class="carousel-item active">
+                <div class="car-slide" id="jokes-list" style="background-color: #333;">
                         <h1> CHUCK NORRIS TRUE FACTS.</h1>
                         <section class="main-stackslider">
                                 <ul id="st-stack" class="st-stack-raw">
@@ -166,16 +165,108 @@
 
                 //call function
                 getdata();
+                
             };
+            
+            var FavoList = $(".favorite-list");
+            var ulFavo = document.getElementById("favo-list");
+
+            // get favorites from local storage or empty array
+            var favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            
+            // register click event listener
+            document.querySelector('.jokes-list').addEventListener('click', function(e) {
+            var id = e.target.id,
+                item = e.target,
+                index = favorites.indexOf(id);
+
+            // return if target doesn't have an id (shouldn't happen)
+            if (!id) return;
+
+            // item is not favorite
+            if (index == -1) {
+                favorites.push(id);
+                item.className = "fav";
+
+                //add to favorite list
+                FavoList.append("<li id='"+id+"'>"+id+"</li>");
+
+            // item is already favorite
+            } else {
+                favorites.splice(index, 1);
+                item.className = '';
+
+                //remove from favorite list
+                
+            }
+            // store array in local storage
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            });
             
             //refresh data
             $('.get-data').click(function () {
 
                 //call function
                 getdata();
-                
+
             });
-           
+
+
+            //fetch favorites
+            $('#fetch-favo').click(function () {
+
+                //call function
+                FetchAfavorites();
+
+            });
+            
+            //remove all favorites
+            $('#clear-favo').click(function () {
+
+                //clear list items
+                ulFavo.innerHTML = "";
+
+                //clear favorites list
+                window.localStorage.removeItem('favorites');
+
+            });
+            
+            
+            
+            //function to create li
+            const liMaker = (text) => {
+                const li = document.createElement('li');
+                li.textContent = text;
+                FavoList.append(li);
+            }
+
+             //function to fetch all favorites
+             function FetchAfavorites(){
+
+                console.log("Restoring array data from localstorage");
+
+                myFavoJokes = JSON.parse(localStorage.getItem("favorites"));
+
+                //Check if data exists
+                if(myFavoJokes != null){
+                    
+                    //clean favorite list
+                    FavoList.innerHTML = "";
+
+                    myFavoJokes.forEach(item => {
+                        liMaker(item);
+                    });
+
+                }else{
+
+                    //if no favorites have been found
+                    $(".favorite-list").append("<li>No favorite list found. Get yourself some Norris facts!</li>");
+
+                }
+
+
+            }
+
             //function to get data from api
             function getdata(){
                 var url = "http://api.icndb.com/jokes/random/10";
@@ -207,64 +298,6 @@
                     
                 });
             }
-
-            // get favorites from local storage or empty array
-            var favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-            // add class 'fav' to each favorite
-            //favorites.forEach(function(favorite) {
-            //    document.getElementById(favorite).className = "fav";
-            //});
-            // register click event listener
-            document.querySelector('.jokes-list').addEventListener('click', function(e) {
-            var id = e.target.id,
-                item = e.target,
-                index = favorites.indexOf(id);
-            // return if target doesn't have an id (shouldn't happen)
-            if (!id) return;
-            // item is not favorite
-            if (index == -1) {
-                favorites.push(id);
-                item.className = "fav";
-
-                //add to favorite list
-                $(".favorite-list").append("<li id='"+id+"'>"+id+"</li>");
-
-            // item is already favorite
-            } else {
-                favorites.splice(index, 1);
-                item.className = '';
-
-                //remove from favorite list
-                
-            }
-            // store array in local storage
-            localStorage.setItem('favorites', JSON.stringify(favorites));
-            });
-
-            // local storage stores strings so we use JSON to stringify for storage and parse to get out of storage
-
-            
-            //fetch favorites
-            $('#fetch-favo').click(function () {
-
-                //call function
-                for(var i=0; i < localStorage.length; i++){
-
-                    var propertyName = localStorage.key(i);
-
-                    console.log(  i + " : " + propertyName + " = " +
-                        localStorage.getItem(propertyName));
-                }
-
-            });
-            
-            //remove all favorites
-            $('#clear-favo').click(function () {
-
-                window.localStorage.removeItem('favorites');
-                
-
-            });
 
 
             //auto update action lists
